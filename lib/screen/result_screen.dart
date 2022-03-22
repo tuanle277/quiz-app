@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:learn_flutter/models/constant.dart';
 import '../widgets/button_with_gradient.dart';
 
 class Result extends StatelessWidget {
   final int resultScore;
   final Function resetHandler;
 
-  Result(this.resultScore, this.resetHandler);
+  const Result(this.resultScore, this.resetHandler);
 
   String get resultPhase {
     var resultText = 'score: ' + resultScore.toString();

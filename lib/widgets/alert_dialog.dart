@@ -13,7 +13,7 @@ class CustomAlertDialogWith2TextField extends StatelessWidget {
   final Widget widgetItLedTo;
 
   CustomAlertDialogWith2TextField({
-    @required this.widgetItLedTo,
+    this.widgetItLedTo,
     @required this.firstButtonTitle,
     @required this.firstController,
     @required this.firstTextTitle,
