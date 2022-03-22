@@ -1,15 +1,11 @@
 class Questions {
   String questionText;
-  List<Map> answerList;
-  String answerId;
-  String answerText;
-  int answerPoint;
+  List<String> answerList;
+  List<String> answerPoint;
 
   Questions({
     this.answerList,
-    this.answerId,
     this.answerPoint,
-    this.answerText,
     this.questionText,
   });
 }

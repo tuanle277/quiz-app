@@ -5,8 +5,9 @@ import '../models/constant.dart';
 class ButtonWithGradient extends StatelessWidget {
   final String text;
   final Function function;
+  double width;
 
-  ButtonWithGradient(this.text, this.function);
+  ButtonWithGradient(this.text, this.function, this.width);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class ButtonWithGradient extends StatelessWidget {
         ),
       ),
       height: mediaQuery.height * 0.07,
-      width: mediaQuery.width * 0.8,
+      width: width,
       child: ElevatedButton(
         child: Text(
           text,

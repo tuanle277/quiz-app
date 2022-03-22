@@ -47,6 +47,9 @@ class _QuizPageState extends State<QuizPage> {
                 color: Colors.red,
               ),
             ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
             Text(
               'Question ${widget.questionIndex + 1}/${widget.questions.length}',
               textAlign: TextAlign.start,
@@ -72,6 +75,9 @@ class _QuizPageState extends State<QuizPage> {
                 );
               },
             ).toList(),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.04,
+            ),
             Container(
               width: 130,
               decoration: const BoxDecoration(

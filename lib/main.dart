@@ -1,10 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+
+import 'package:learn_flutter/screen/quiz_making_screens.dart';
 import 'package:learn_flutter/screen/quiz_page.dart';
 import 'package:learn_flutter/screen/start.dart';
 import 'screen/start.dart';
 import 'screen/result_screen.dart';
+
+import './models/constant.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,63 +33,6 @@ class _MyAppState extends State<MyApp> {
   //main widget
   @override //decorator, makes the code cleaner and clearer
   Widget build(BuildContext context) {
-    final evaluation = [
-      'well, you tried!',
-      'unlucky',
-      'you got it!',
-      'you did well!',
-      'you\'re too good!',
-      'perfect!!',
-    ];
-
-    final questions = [
-      {
-        'questionText': '1 + 1 = ?',
-        'answerText': [
-          {'answerId': 'A', 'text': '1', 'score': 0},
-          {'answerId': 'B', 'text': '2', 'score': 1},
-          {'answerId': 'C', 'text': '3', 'score': 0},
-          {'answerId': 'D', 'text': '4', 'score': 0}
-        ]
-      },
-      {
-        'questionText': '2 * 3 = ?',
-        'answerText': [
-          {'answerId': 'A', 'text': '7', 'score': 0},
-          {'answerId': 'B', 'text': '6', 'score': 1},
-          {'answerId': 'C', 'text': '8', 'score': 0},
-          {'answerId': 'D', 'text': '9', 'score': 0}
-        ]
-      },
-      {
-        'questionText': '5 * 34 = ?',
-        'answerText': [
-          {'answerId': 'A', 'text': '43', 'score': 0},
-          {'answerId': 'B', 'text': '23', 'score': 0},
-          {'answerId': 'C', 'text': '170', 'score': 1},
-          {'answerId': 'D', 'text': '123', 'score': 0}
-        ]
-      },
-      {
-        'questionText': '9 * 23 = ?',
-        'answerText': [
-          {'answerId': 'A', 'text': '142', 'score': 0},
-          {'answerId': 'B', 'text': '73', 'score': 0},
-          {'answerId': 'C', 'text': '253', 'score': 0},
-          {'answerId': 'D', 'text': '217', 'score': 1}
-        ]
-      },
-      {
-        'questionText': '50 * 40 = ?',
-        'answerText': [
-          {'answerId': 'A', 'text': '2344', 'score': 0},
-          {'answerId': 'B', 'text': '2000', 'score': 1},
-          {'answerId': 'C', 'text': '2203', 'score': 0},
-          {'answerId': 'D', 'text': '2390', 'score': 0},
-        ]
-      }
-    ];
-
     // final MadeQuestions = [];
 
     bool cancelTimer = false;
@@ -113,7 +59,7 @@ class _MyAppState extends State<MyApp> {
 
                 startTimer();
               } else if (cancelTimer == true ||
-                  questionIndex == questions.length ||
+                  questionIndex == questionSets["Default"].length ||
                   screen == 0) {
                 t.cancel();
                 timer = 10;
@@ -132,7 +78,7 @@ class _MyAppState extends State<MyApp> {
       timer = 11;
       setState(
         () {
-          if (questionIndex < questions.length) questionIndex++;
+          if (questionIndex < questionSets["Default"].length) questionIndex++;
         },
       );
 
@@ -171,7 +117,8 @@ class _MyAppState extends State<MyApp> {
       _startTimer();
     }
 
-    final numOfQuizController = TextEditingController();
+    final _numOfQuizController = TextEditingController();
+    final _nameOfQuizController = TextEditingController();
 
     // void submitDataForQuizMaking() {}
 
@@ -185,18 +132,19 @@ class _MyAppState extends State<MyApp> {
       //   fontFamily: 'QuickSand',
       //   accentColor: Colors.black,
       // ),
+      // routes: {'/quizMakeScreen': (ctx) => QuizMakingScreens()},
       home: screen == 0
-          ? Start(_play, numOfQuizController)
-          : questionIndex < questions.length
+          ? Start(_play, _numOfQuizController, _nameOfQuizController)
+          : questionIndex < questionSets["Default"].length
               ? QuizPage(
                   questionIndex: questionIndex,
-                  questions: questions,
+                  questions: questionSets["Default"],
                   answerQuestion: _answerQuestion,
                   showTimer: showTimer,
                   startTimer: startTimer,
                   quit: _resetQuiz,
                 )
-              : Result(evaluation[_score], _score, _resetQuiz),
+              : Result(_score, _resetQuiz),
     );
   }
 }

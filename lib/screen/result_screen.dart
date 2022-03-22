@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
+import 'package:learn_flutter/models/constant.dart';
+import '../widgets/button_with_gradient.dart';
+
 class Result extends StatelessWidget {
   final int resultScore;
   final Function resetHandler;
-  final String resultText;
 
-  Result(this.resultText, this.resultScore, this.resetHandler);
+  Result(this.resultScore, this.resetHandler);
 
   String get resultPhase {
-    var resultText = 'You score is: ' + resultScore.toString();
+    var resultText = 'score: ' + resultScore.toString();
 
     return resultText;
   }
@@ -23,8 +25,8 @@ class Result extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 100,
+                padding: const EdgeInsets.only(
+                  top: 340,
                 ),
                 child: Text(
                   resultPhase,
@@ -34,28 +36,13 @@ class Result extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
-                resultText,
-                style: const TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
               ),
-              Container(
-                padding: const EdgeInsets.only(
-                  top: 15,
-                ),
-                height: 60,
-                width: 250,
-                child: ElevatedButton(
-                  child: const Text(
-                    'Continue',
-                    style: TextStyle(
-                      fontSize: 35,
-                    ),
-                  ),
-                  onPressed: resetHandler,
-                ),
+              ButtonWithGradient(
+                "Continue",
+                resetHandler,
+                MediaQuery.of(context).size.width * 0.8,
               ),
             ],
           ),

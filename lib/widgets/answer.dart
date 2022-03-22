@@ -14,11 +14,11 @@ class Answer extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(18),
       width: double.infinity,
-      height: 41,
+      height: MediaQuery.of(context).size.height * 0.07,
       child: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(
-            Radius.circular(20),
+            Radius.circular(70),
           ),
           boxShadow: [
             BoxShadow(
@@ -33,7 +33,7 @@ class Answer extends StatelessWidget {
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(
-                  20,
+                  40,
                 ),
               ),
             ),

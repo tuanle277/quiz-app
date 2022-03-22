@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn_flutter/screen/quiz_making_screens.dart';
+import 'package:learn_flutter/widgets/alert_dialog.dart';
+import 'package:learn_flutter/widgets/button_with_gradient.dart';
 
 import '../models/constant.dart';
 
@@ -7,14 +9,20 @@ class Start extends StatelessWidget {
   Function play;
   Function submitDataForQuizMaking;
   TextEditingController numOfQuizController;
+  TextEditingController nameOfQuizController;
 
-  Start(this.play, this.numOfQuizController);
+  Start(
+    this.play,
+    this.numOfQuizController,
+    this.nameOfQuizController,
+  );
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.blueGrey[900],
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -40,131 +48,44 @@ class Start extends StatelessWidget {
               ),
               child: Column(
                 children: <Widget>[
-                  Container(
-                      alignment: Alignment.center,
-                      child: Container(
-                        height: mediaQuery.height * 0.07,
-                        width: mediaQuery.width * 0.8,
-                        decoration: const BoxDecoration(
-                          gradient: buttonGradient,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(18),
-                          ),
-                        ),
-                        child: ElevatedButton(
-                          child: const Text(
-                            "Start game",
-                            style: TextStyle(
-                              fontSize: 22,
-                              color: Colors.black,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.transparent),
-                            shadowColor:
-                                MaterialStateProperty.all(Colors.transparent),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  16,
-                                ),
-                              ),
-                            ),
-                          ),
-                          onPressed: play,
-                        ),
-                      )),
+                  ButtonWithGradient(
+                      "Start game", play, mediaQuery.width * 0.8),
                   SizedBox(
                     height: mediaQuery.height * 0.02,
                   ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      gradient: buttonGradient,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(18),
-                      ),
-                    ),
-                    height: mediaQuery.height * 0.07,
-                    width: mediaQuery.width * 0.8,
-                    child: ElevatedButton(
-                      child: const Text(
-                        "Make quiz",
-                        style: TextStyle(
-                          fontSize: 22,
-                          color: Colors.black,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.transparent),
-                        shadowColor:
-                            MaterialStateProperty.all(Colors.transparent),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                              20,
-                            ),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text(
-                              'Make a quiz',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            content: SizedBox(
-                              height: 70,
-                              child: Column(
-                                children: <Widget>[
-                                  TextField(
-                                    showCursor: true,
-                                    keyboardType: TextInputType.number,
-                                    textCapitalization:
-                                        TextCapitalization.sentences,
-                                    decoration: const InputDecoration(
-                                      labelText: 'Number of question',
-                                    ),
-                                    controller: numOfQuizController,
-                                    onSubmitted: (_) => {},
-                                  ),
-                                ],
-                              ),
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => Navigator.pop(context),
-                                child: const Text('Cancel'),
-                              ),
-                              TextButton(
-                                child: const Text('OK'),
-                                onPressed: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => QuizMakingScreens(
-                                      int.parse(
-                                        numOfQuizController.text,
-                                      ),
-                                    ),
-                                  ),
+                  ButtonWithGradient(
+                      "Make quiz",
+                      () => showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (BuildContext context) =>
+                                CustomAlertDialogWith2TextField(
+                              widgetItLedTo: QuizMakingScreens(
+                                int.parse(
+                                  numOfQuizController.text,
+                                  // ignore: deprecated_member_use
+                                  onError: (source) => -1,
                                 ),
-                              )
-                            ],
+                                nameOfQuizController.text,
+                              ),
+                              firstButtonTitle: 'Cancel',
+                              firstController: nameOfQuizController,
+                              firstTextTitle: "Name of Quiz",
+                              heightt: mediaQuery.height * 0.16,
+                              secondButtonTitle: "Done",
+                              secondController: numOfQuizController,
+                              secondTextTitle: "Number of question",
+                              title: "Quiz making",
+                            ),
                           ),
-                        );
-                      },
-                    ),
+                      mediaQuery.width * 0.8),
+                  SizedBox(
+                    height: mediaQuery.height * 0.02,
                   ),
+                  ButtonWithGradient(
+                      "Quiz chosen: ${questionSets.keys.toList()[0]}",
+                      () {},
+                      mediaQuery.width * 0.8)
                 ],
               ),
             ),
