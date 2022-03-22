@@ -67,6 +67,7 @@ class Start extends StatelessWidget {
                                   onError: (source) => -1,
                                 ),
                                 nameOfQuizController.text,
+                                1,
                               ),
                               firstButtonTitle: 'Cancel',
                               firstController: nameOfQuizController,

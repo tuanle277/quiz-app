@@ -4,8 +4,9 @@ import 'package:learn_flutter/widgets/button_with_gradient.dart';
 class QuizMakingScreens extends StatefulWidget {
   final int numberOfQuestion;
   final String nameOfQuiz;
+  int current;
 
-  QuizMakingScreens(this.numberOfQuestion, this.nameOfQuiz);
+  QuizMakingScreens(this.numberOfQuestion, this.nameOfQuiz, this.current);
 
   @override
   State<QuizMakingScreens> createState() => _QuizMakingScreensState();
@@ -14,9 +15,7 @@ class QuizMakingScreens extends StatefulWidget {
 class _QuizMakingScreensState extends State<QuizMakingScreens> {
   @override
   Widget build(BuildContext context) {
-    int current = 1;
-
-    return current < widget.numberOfQuestion + 1
+    return widget.current < widget.numberOfQuestion + 1
         ? Scaffold(
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
@@ -33,7 +32,7 @@ class _QuizMakingScreensState extends State<QuizMakingScreens> {
                   () {
                     setState(
                       () {
-                        current++;
+                        widget.current++;
                       },
                     );
                   },
@@ -62,22 +61,22 @@ class _QuizMakingScreensState extends State<QuizMakingScreens> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "Question $current",
+                        "Question ${widget.current}",
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
+                      const Text(
                         "Quiz",
                       ),
-                      Text(
+                      const Text(
                         "Quiz",
                       ),
-                      Text(
+                      const Text(
                         "Quiz",
                       ),
-                      Text(
+                      const Text(
                         "Quiz",
                       ),
                     ],
@@ -90,7 +89,7 @@ class _QuizMakingScreensState extends State<QuizMakingScreens> {
             body: SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: Center(
+              child: const Center(
                 child: Text(
                   'you have finished making the quiz',
                 ),
