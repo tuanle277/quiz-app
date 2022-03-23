@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/widgets/button_with_gradient.dart';
 
+import 'package:learn_flutter/widgets/button_with_gradient.dart';
 import '../widgets/alert_dialog.dart';
+
+import '../models/constant.dart';
 
 class QuizMakingScreens extends StatefulWidget {
   final int numberOfQuestion;
@@ -15,25 +17,36 @@ class QuizMakingScreens extends StatefulWidget {
 }
 
 class _QuizMakingScreensState extends State<QuizMakingScreens> {
-  final firstQController = TextEditingController();
-  final secondQController = TextEditingController();
-  final thirdQController = TextEditingController();
-  final fourthQController = TextEditingController();
+  final questionController = TextEditingController();
 
   final firstAController = TextEditingController();
   final secondAController = TextEditingController();
   final thirdAController = TextEditingController();
   final fourthAController = TextEditingController();
 
-  // void submitQuestion() {
-  //   questionSets[nameOfQuiz].add()
-  // }
+  void submitQuestion(
+    question,
+    firstAnswer,
+  ) {
+    questionSets[widget.nameOfQuiz].add(
+      {
+        'questionText': question,
+        'answerText': [
+          {'answerId': 'A', 'text': '1', 'score': 0},
+          {'answerId': 'B', 'text': '2', 'score': 1},
+          {'answerId': 'C', 'text': '3', 'score': 0},
+          {'answerId': 'D', 'text': '4', 'score': 0}
+        ]
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     Size mediaQuery = MediaQuery.of(context).size;
     return widget.current < widget.numberOfQuestion + 1
         ? Scaffold(
+            resizeToAvoidBottomInset: false,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
             floatingActionButton: Row(
@@ -78,103 +91,91 @@ class _QuizMakingScreensState extends State<QuizMakingScreens> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
-                    height: mediaQuery.height * 0.1,
+                    height: mediaQuery.height * 0.08,
                   ),
                   Text(
                     "Question ${widget.current}",
                     style: const TextStyle(
-                      fontSize: 36,
+                      fontSize: 32,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(
                     height: mediaQuery.height * 0.1,
                   ),
-                  ButtonWithGradient(
-                      "Question 1",
-                      () => showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (BuildContext context) =>
-                                CustomAlertDialogWith2TextField(
-                              firstButtonTitle: 'Cancel',
-                              firstController: firstQController,
-                              firstTextTitle: "Question",
-                              heightt:
-                                  MediaQuery.of(context).size.height * 0.16,
-                              secondButtonTitle: "Done",
-                              secondController: firstAController,
-                              secondTextTitle: "Answer",
-                              title: "Question 1",
-                            ),
-                          ),
-                      mediaQuery.width * 0.8),
                   SizedBox(
-                    height: mediaQuery.height * 0.05,
+                    width: mediaQuery.width * 0.8,
+                    child: TextField(
+                      showCursor: true,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: InputDecoration(
+                        labelText: "Question",
+                        border: OutlineInputBorder(),
+                      ),
+                      controller: questionController,
+                      onSubmitted: (_) => {},
+                    ),
                   ),
-                  ButtonWithGradient(
-                      "Question 2",
-                      () => showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (BuildContext context) =>
-                                CustomAlertDialogWith2TextField(
-                              firstButtonTitle: 'Cancel',
-                              firstController: secondQController,
-                              firstTextTitle: "Question",
-                              heightt:
-                                  MediaQuery.of(context).size.height * 0.16,
-                              secondButtonTitle: "Done",
-                              secondController: secondAController,
-                              secondTextTitle: "Answer",
-                              title: "Question 2",
-                            ),
-                          ),
-                      mediaQuery.width * 0.8),
                   SizedBox(
-                    height: mediaQuery.height * 0.05,
+                    height: mediaQuery.height * 0.07,
                   ),
-                  ButtonWithGradient(
-                      "Question 3",
-                      () => showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (BuildContext context) =>
-                                CustomAlertDialogWith2TextField(
-                              firstButtonTitle: 'Cancel',
-                              firstController: thirdQController,
-                              firstTextTitle: "Question",
-                              heightt:
-                                  MediaQuery.of(context).size.height * 0.16,
-                              secondButtonTitle: "Done",
-                              secondController: thirdAController,
-                              secondTextTitle: "Answer",
-                              title: "Question 3",
-                            ),
-                          ),
-                      mediaQuery.width * 0.8),
                   SizedBox(
-                    height: mediaQuery.height * 0.05,
+                    width: mediaQuery.width * 0.9,
+                    child: TextField(
+                      showCursor: true,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: const InputDecoration(
+                        labelText: "Answer 1",
+                      ),
+                      controller: firstAController,
+                      onSubmitted: (_) => {},
+                    ),
                   ),
-                  ButtonWithGradient(
-                      "Question 4",
-                      () => showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (BuildContext context) =>
-                                CustomAlertDialogWith2TextField(
-                              firstButtonTitle: 'Cancel',
-                              firstController: fourthQController,
-                              firstTextTitle: "Question",
-                              heightt:
-                                  MediaQuery.of(context).size.height * 0.16,
-                              secondButtonTitle: "Done",
-                              secondController: fourthAController,
-                              secondTextTitle: "Answer",
-                              title: "Question 4",
-                            ),
-                          ),
-                      mediaQuery.width * 0.8),
+                  SizedBox(
+                    height: mediaQuery.height * 0.02,
+                  ),
+                  SizedBox(
+                    width: mediaQuery.width * 0.9,
+                    child: TextField(
+                      showCursor: true,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: const InputDecoration(
+                        labelText: "Answer 2",
+                      ),
+                      controller: secondAController,
+                      onSubmitted: (_) => {},
+                    ),
+                  ),
+                  SizedBox(
+                    height: mediaQuery.height * 0.02,
+                  ),
+                  SizedBox(
+                    width: mediaQuery.width * 0.9,
+                    child: TextField(
+                      showCursor: true,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: const InputDecoration(
+                        labelText: "Answer 3",
+                      ),
+                      controller: firstAController,
+                      onSubmitted: (_) => {},
+                    ),
+                  ),
+                  SizedBox(
+                    height: mediaQuery.height * 0.02,
+                  ),
+                  SizedBox(
+                    width: mediaQuery.width * 0.9,
+                    child: TextField(
+                      showCursor: true,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: const InputDecoration(
+                        labelText: "Answer 4",
+                      ),
+                      controller: firstAController,
+                      onSubmitted: (_) => {},
+                    ),
+                  )
                 ],
               ),
             ),

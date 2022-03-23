@@ -10,10 +10,10 @@ class CustomAlertDialogWith2TextField extends StatelessWidget {
   final String secondButtonTitle;
   final String firstTextTitle;
   final String secondTextTitle;
-  final Widget widgetItLedTo;
+  final Function function;
 
   CustomAlertDialogWith2TextField({
-    this.widgetItLedTo,
+    @required this.function,
     @required this.firstButtonTitle,
     @required this.firstController,
     @required this.firstTextTitle,
@@ -69,10 +69,7 @@ class CustomAlertDialogWith2TextField extends StatelessWidget {
           child: Text(
             secondButtonTitle,
           ),
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => widgetItLedTo),
-          ),
+          onPressed: function,
         )
       ],
     );

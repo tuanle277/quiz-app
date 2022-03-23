@@ -60,14 +60,19 @@ class Start extends StatelessWidget {
                             context: context,
                             builder: (BuildContext context) =>
                                 CustomAlertDialogWith2TextField(
-                              widgetItLedTo: QuizMakingScreens(
-                                int.parse(
-                                  numOfQuizController.text,
-                                  // ignore: deprecated_member_use
-                                  onError: (source) => -1,
+                              function: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => QuizMakingScreens(
+                                    int.parse(
+                                      numOfQuizController.text,
+                                      // ignore: deprecated_member_use
+                                      onError: (source) => -1,
+                                    ),
+                                    nameOfQuizController.text,
+                                    1,
+                                  ),
                                 ),
-                                nameOfQuizController.text,
-                                1,
                               ),
                               firstButtonTitle: 'Cancel',
                               firstController: nameOfQuizController,
