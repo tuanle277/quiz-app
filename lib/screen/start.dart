@@ -62,6 +62,7 @@ class Start extends StatelessWidget {
                                 CustomAlertDialogWith2TextField(
                               function: () {
                                 numOfQuestionSet.add(numOfQuizController.text);
+                                nameSet.add(nameOfQuizController.text);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -112,6 +113,7 @@ class Start extends StatelessWidget {
                                     //   physics: const ScrollPhysics(),
                                     //   child:
                                     ListView.builder(
+                                  itemCount: nameSet.length,
                                   shrinkWrap: true,
                                   itemBuilder: (
                                     context,
@@ -137,9 +139,26 @@ class Start extends StatelessWidget {
                                             ),
                                           ),
                                           child: Row(
-                                            children: const [
-                                              Text('nice'),
-                                              Text('nice')
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              FittedBox(
+                                                child: Text(
+                                                  nameSet[index],
+                                                  style: const TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                numOfQuestionSet[index]
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 20,
+                                                ),
+                                              )
                                             ],
                                           ),
                                         ),

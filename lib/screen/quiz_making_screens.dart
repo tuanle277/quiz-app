@@ -43,8 +43,6 @@ class _QuizMakingScreensState extends State<QuizMakingScreens> {
         thirdAnswer.isNotEmpty ||
         fourthAnswer.isNotEmpty) {
       questionSets[widget.nameOfQuiz] = [];
-
-      nameSet.add(question);
       questionSets[widget.nameOfQuiz].add(
         {
           'questionText': question,
