@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:learn_flutter/widgets/button_with_gradient.dart';
-import '../widgets/alert_dialog.dart';
 
 import '../models/constant.dart';
 
@@ -24,21 +23,41 @@ class _QuizMakingScreensState extends State<QuizMakingScreens> {
   final thirdAController = TextEditingController();
   final fourthAController = TextEditingController();
 
+  void reset() {
+    questionController.clear();
+    firstAController.clear();
+    secondAController.clear();
+    thirdAController.clear();
+    fourthAController.clear();
+  }
+
   void submitQuestion(
     question,
     firstAnswer,
+    secondAnswer,
+    thirdAnswer,
+    fourthAnswer,
   ) {
-    questionSets[widget.nameOfQuiz].add(
-      {
-        'questionText': question,
-        'answerText': [
-          {'answerId': 'A', 'text': '1', 'score': 0},
-          {'answerId': 'B', 'text': '2', 'score': 1},
-          {'answerId': 'C', 'text': '3', 'score': 0},
-          {'answerId': 'D', 'text': '4', 'score': 0}
-        ]
-      },
-    );
+    if (firstAnswer.isNotEmpty ||
+        secondAnswer.isNotEmpty ||
+        thirdAnswer.isNotEmpty ||
+        fourthAnswer.isNotEmpty) {
+      questionSets[widget.nameOfQuiz] = [];
+      questionSets[widget.nameOfQuiz].add(
+        {
+          'questionText': question,
+          'answerText': [
+            {'answerId': 'A', 'text': firstAnswer, 'score': 0},
+            {'answerId': 'B', 'text': secondAnswer, 'score': 1},
+            {'answerId': 'C', 'text': thirdAnswer, 'score': 0},
+            {'answerId': 'D', 'text': fourthAnswer, 'score': 0}
+          ]
+        },
+      );
+      reset();
+    } else {
+      return;
+    }
   }
 
   @override
@@ -59,23 +78,33 @@ class _QuizMakingScreensState extends State<QuizMakingScreens> {
                       widget.current--;
                     });
                   },
-                  MediaQuery.of(context).size.width * 0.3,
+                  MediaQuery.of(context).size.width * 0.45,
                 ),
-                ButtonWithGradient(
-                  'next',
-                  () {
-                    setState(
-                      () {
-                        widget.current++;
-                      },
-                    );
-                  },
-                  MediaQuery.of(context).size.width * 0.3,
-                ),
+                // ButtonWithGradient(
+                //   'next',
+                //   () {
+                //     setState(
+                //       () {
+                //         widget.current++;
+                //       },
+                //     );
+                //   },
+                //   MediaQuery.of(context).size.width * 0.3,
+                // ),
                 ButtonWithGradient(
                   'finish',
-                  () {},
-                  MediaQuery.of(context).size.width * 0.3,
+                  () {
+                    submitQuestion(
+                        questionController.text,
+                        firstAController.text,
+                        secondAController.text,
+                        thirdAController.text,
+                        fourthAController.text);
+                    setState(() {
+                      widget.current++;
+                    });
+                  },
+                  MediaQuery.of(context).size.width * 0.45,
                 ),
               ],
             ),
@@ -108,7 +137,7 @@ class _QuizMakingScreensState extends State<QuizMakingScreens> {
                     child: TextField(
                       showCursor: true,
                       textCapitalization: TextCapitalization.sentences,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: "Question",
                         border: OutlineInputBorder(),
                       ),
@@ -157,7 +186,7 @@ class _QuizMakingScreensState extends State<QuizMakingScreens> {
                       decoration: const InputDecoration(
                         labelText: "Answer 3",
                       ),
-                      controller: firstAController,
+                      controller: thirdAController,
                       onSubmitted: (_) => {},
                     ),
                   ),
@@ -172,7 +201,7 @@ class _QuizMakingScreensState extends State<QuizMakingScreens> {
                       decoration: const InputDecoration(
                         labelText: "Answer 4",
                       ),
-                      controller: firstAController,
+                      controller: fourthAController,
                       onSubmitted: (_) => {},
                     ),
                   )
@@ -181,6 +210,15 @@ class _QuizMakingScreensState extends State<QuizMakingScreens> {
             ),
           )
         : Scaffold(
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: ButtonWithGradient(
+              "Back to home",
+              () {
+                Navigator.pop(context);
+              },
+              mediaQuery.width * 0.6,
+            ),
             body: SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,

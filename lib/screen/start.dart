@@ -6,10 +6,10 @@ import 'package:learn_flutter/widgets/button_with_gradient.dart';
 import '../models/constant.dart';
 
 class Start extends StatelessWidget {
-  Function play;
+  final Function play;
   Function submitDataForQuizMaking;
-  TextEditingController numOfQuizController;
-  TextEditingController nameOfQuizController;
+  final TextEditingController numOfQuizController;
+  final TextEditingController nameOfQuizController;
 
   Start(
     this.play,
@@ -90,7 +90,64 @@ class Start extends StatelessWidget {
                   ),
                   ButtonWithGradient(
                       "Quiz chosen: ${questionSets.keys.toList()[0]}",
-                      () {},
+                      () => showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text(
+                                "Pick a quiz!",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              content: SizedBox(
+                                height: mediaQuery.height * 0.4,
+                                width: mediaQuery.width * 0.8,
+                                child: SingleChildScrollView(
+                                  physics: const ScrollPhysics(),
+                                  child: ListView.builder(
+                                    primary: false,
+                                    shrinkWrap: true,
+                                    itemBuilder: (
+                                      context,
+                                      index,
+                                    ) {
+                                      return Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(35.0),
+                                        ),
+                                        margin: const EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                          vertical: 7,
+                                        ),
+                                        child: InkWell(
+                                          child: Container(
+                                            height: 65,
+                                            decoration: const BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(200),
+                                              ),
+                                            ),
+                                            child: SizedBox(
+                                              width: mediaQuery.width * 0.7,
+                                              child: Row(
+                                                children: const [
+                                                  Text('nice'),
+                                                  Text('nice')
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                       mediaQuery.width * 0.8)
                 ],
               ),
