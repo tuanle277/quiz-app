@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
+
 import 'package:learn_flutter/screen/quiz_making_screens.dart';
 import 'package:learn_flutter/widgets/alert_dialog.dart';
 import 'package:learn_flutter/widgets/button_with_gradient.dart';
 
 import '../models/constant.dart';
 
-class Start extends StatelessWidget {
+class Start extends StatefulWidget {
   final Function play;
-  Function submitDataForQuizMaking;
   final TextEditingController numOfQuizController;
   final TextEditingController nameOfQuizController;
+  String chosenQuiz;
 
   Start(
     this.play,
     this.numOfQuizController,
     this.nameOfQuizController,
+    this.chosenQuiz,
   );
+
+  @override
+  State<Start> createState() => _StartState();
+}
+
+class _StartState extends State<Start> {
+  Function submitDataForQuizMaking;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +58,10 @@ class Start extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   ButtonWithGradient(
-                      "Start game", play, mediaQuery.width * 0.8),
+                    "Start game",
+                    widget.play,
+                    mediaQuery.width * 0.8,
+                  ),
                   SizedBox(
                     height: mediaQuery.height * 0.02,
                   ),
@@ -61,29 +73,32 @@ class Start extends StatelessWidget {
                             builder: (BuildContext context) =>
                                 CustomAlertDialogWith2TextField(
                               function: () {
-                                numOfQuestionSet.add(numOfQuizController.text);
-                                nameSet.add(nameOfQuizController.text);
+                                numOfQuestionSet
+                                    .add(widget.numOfQuizController.text);
+                                nameSet.add(widget.nameOfQuizController.text);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => QuizMakingScreens(
                                       int.parse(
-                                        numOfQuizController.text,
+                                        widget.numOfQuizController.text,
                                         // ignore: deprecated_member_use
                                         onError: (source) => -1,
                                       ),
-                                      nameOfQuizController.text,
+                                      widget.nameOfQuizController.text,
                                       1,
+                                      widget.nameOfQuizController,
+                                      widget.numOfQuizController,
                                     ),
                                   ),
                                 );
                               },
                               firstButtonTitle: 'Cancel',
-                              firstController: nameOfQuizController,
+                              firstController: widget.nameOfQuizController,
                               firstTextTitle: "Name of Quiz",
                               heightt: mediaQuery.height * 0.16,
                               secondButtonTitle: "Done",
-                              secondController: numOfQuizController,
+                              secondController: widget.numOfQuizController,
                               secondTextTitle: "Number of question",
                               title: "Quiz making",
                             ),
@@ -105,7 +120,7 @@ class Start extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              content: Container(
+                              content: SizedBox(
                                 height: mediaQuery.height * 0.3,
                                 width: mediaQuery.width * 0.7,
                                 child:
@@ -129,6 +144,12 @@ class Start extends StatelessWidget {
                                         vertical: 7,
                                       ),
                                       child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            widget.chosenQuiz = nameSet[index];
+                                            Navigator.pop(context);
+                                          });
+                                        },
                                         child: Container(
                                           height: mediaQuery.height * 0.1,
                                           width: mediaQuery.width * 0.5,

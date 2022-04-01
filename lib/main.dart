@@ -119,6 +119,8 @@ class _MyAppState extends State<MyApp> {
     final _numOfQuizController = TextEditingController();
     final _nameOfQuizController = TextEditingController();
 
+    final chosenQuiz = "Default";
+
     // void submitDataForQuizMaking() {}
 
     return MaterialApp(
@@ -133,11 +135,12 @@ class _MyAppState extends State<MyApp> {
       // ),
       // routes: {'/quizMakeScreen': (ctx) => QuizMakingScreens()},
       home: screen == 0
-          ? Start(_play, _numOfQuizController, _nameOfQuizController)
-          : questionIndex < questionSets["Default"].length
+          ? Start(
+              _play, _numOfQuizController, _nameOfQuizController, chosenQuiz)
+          : questionIndex < questionSets[chosenQuiz].length
               ? QuizPage(
                   questionIndex: questionIndex,
-                  questions: questionSets["Default"],
+                  questions: questionSets[chosenQuiz],
                   answerQuestion: _answerQuestion,
                   showTimer: showTimer,
                   startTimer: startTimer,

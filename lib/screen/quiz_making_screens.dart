@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 
-import 'package:learn_flutter/widgets/button_with_gradient.dart';
+import '../main.dart';
 
+import 'package:learn_flutter/widgets/button_with_gradient.dart';
 import '../models/constant.dart';
 
 class QuizMakingScreens extends StatefulWidget {
   final int numberOfQuestion;
   final String nameOfQuiz;
   int current;
+  TextEditingController numOfQuizController;
+  TextEditingController nameOfQuizController;
 
-  QuizMakingScreens(this.numberOfQuestion, this.nameOfQuiz, this.current);
+  QuizMakingScreens(
+    this.numberOfQuestion,
+    this.nameOfQuiz,
+    this.current,
+    this.nameOfQuizController,
+    this.numOfQuizController,
+  );
 
   @override
   State<QuizMakingScreens> createState() => _QuizMakingScreensState();
@@ -217,6 +226,8 @@ class _QuizMakingScreensState extends State<QuizMakingScreens> {
               () {
                 Navigator.pop(context);
                 Navigator.pop(context);
+                widget.numOfQuizController.clear();
+                widget.nameOfQuizController.clear();
               },
               mediaQuery.width * 0.6,
             ),
