@@ -11,6 +11,10 @@ const buttonGradient = LinearGradient(
 
 const kGrayColor = Color(0xFFC1C1C1);
 
+final List nameSet = ['Default'];
+
+final List numOfQuestionSet = [5];
+
 final Map<String, dynamic> questionSets = {
   "Default": [
     {

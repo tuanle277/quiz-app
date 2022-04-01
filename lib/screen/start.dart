@@ -60,20 +60,23 @@ class Start extends StatelessWidget {
                             context: context,
                             builder: (BuildContext context) =>
                                 CustomAlertDialogWith2TextField(
-                              function: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => QuizMakingScreens(
-                                    int.parse(
-                                      numOfQuizController.text,
-                                      // ignore: deprecated_member_use
-                                      onError: (source) => -1,
+                              function: () {
+                                numOfQuestionSet.add(numOfQuizController.text);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => QuizMakingScreens(
+                                      int.parse(
+                                        numOfQuizController.text,
+                                        // ignore: deprecated_member_use
+                                        onError: (source) => -1,
+                                      ),
+                                      nameOfQuizController.text,
+                                      1,
                                     ),
-                                    nameOfQuizController.text,
-                                    1,
                                   ),
-                                ),
-                              ),
+                                );
+                              },
                               firstButtonTitle: 'Cancel',
                               firstController: nameOfQuizController,
                               firstTextTitle: "Name of Quiz",
@@ -91,9 +94,9 @@ class Start extends StatelessWidget {
                   ButtonWithGradient(
                       "Quiz chosen: ${questionSets.keys.toList()[0]}",
                       () => showDialog(
-                            barrierDismissible: false,
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
+                              scrollable: true,
                               title: const Text(
                                 "Pick a quiz!",
                                 style: TextStyle(
@@ -101,50 +104,50 @@ class Start extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              content: SizedBox(
-                                height: mediaQuery.height * 0.4,
-                                width: mediaQuery.width * 0.8,
-                                child: SingleChildScrollView(
-                                  physics: const ScrollPhysics(),
-                                  child: ListView.builder(
-                                    primary: false,
-                                    shrinkWrap: true,
-                                    itemBuilder: (
-                                      context,
-                                      index,
-                                    ) {
-                                      return Card(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(35.0),
-                                        ),
-                                        margin: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 7,
-                                        ),
-                                        child: InkWell(
-                                          child: Container(
-                                            height: 65,
-                                            decoration: const BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(200),
-                                              ),
-                                            ),
-                                            child: SizedBox(
-                                              width: mediaQuery.width * 0.7,
-                                              child: Row(
-                                                children: const [
-                                                  Text('nice'),
-                                                  Text('nice')
-                                                ],
-                                              ),
+                              content: Container(
+                                height: mediaQuery.height * 0.3,
+                                width: mediaQuery.width * 0.7,
+                                child:
+                                    //  SingleChildScrollView(
+                                    //   physics: const ScrollPhysics(),
+                                    //   child:
+                                    ListView.builder(
+                                  shrinkWrap: true,
+                                  itemBuilder: (
+                                    context,
+                                    index,
+                                  ) {
+                                    return Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(35.0),
+                                      ),
+                                      margin: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 7,
+                                      ),
+                                      child: InkWell(
+                                        child: Container(
+                                          height: mediaQuery.height * 0.1,
+                                          width: mediaQuery.width * 0.5,
+                                          decoration: const BoxDecoration(
+                                            gradient: buttonGradient,
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(200),
                                             ),
                                           ),
+                                          child: Row(
+                                            children: const [
+                                              Text('nice'),
+                                              Text('nice')
+                                            ],
+                                          ),
                                         ),
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    );
+                                  },
                                 ),
+                                // ),
                               ),
                             ),
                           ),

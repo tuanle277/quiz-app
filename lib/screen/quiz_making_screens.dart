@@ -43,6 +43,8 @@ class _QuizMakingScreensState extends State<QuizMakingScreens> {
         thirdAnswer.isNotEmpty ||
         fourthAnswer.isNotEmpty) {
       questionSets[widget.nameOfQuiz] = [];
+
+      nameSet.add(question);
       questionSets[widget.nameOfQuiz].add(
         {
           'questionText': question,
@@ -215,6 +217,7 @@ class _QuizMakingScreensState extends State<QuizMakingScreens> {
             floatingActionButton: ButtonWithGradient(
               "Back to home",
               () {
+                Navigator.pop(context);
                 Navigator.pop(context);
               },
               mediaQuery.width * 0.6,
