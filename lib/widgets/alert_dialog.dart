@@ -54,7 +54,7 @@ class _CustomAlertDialogWith2TextFieldState
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
                 labelText: widget.firstTextTitle,
-                errorText: widget.disabledd,
+                // errorText: widget.disabledd,
               ),
               onChanged: (_) => setState(
                 () => widget.firstController.text,
@@ -71,7 +71,7 @@ class _CustomAlertDialogWith2TextFieldState
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
                 labelText: widget.secondTextTitle,
-                errorText: widget.disabledd2,
+                // errorText: widget.disabledd2,
               ),
               controller: widget.secondController,
               onSubmitted: (_) => {},
@@ -94,9 +94,11 @@ class _CustomAlertDialogWith2TextFieldState
           child: Text(
             widget.secondButtonTitle,
           ),
-          onPressed: (widget.disabledd != null || widget.disabledd2 != null)
-              ? null
-              : widget.function,
+          onPressed:
+              // (widget.disabledd != null || widget.disabledd2 != null)
+              //     ? null
+              //     :
+              widget.function,
         )
       ],
     );

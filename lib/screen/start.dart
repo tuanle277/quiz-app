@@ -4,6 +4,7 @@ import 'package:learn_flutter/screen/quiz_making_screens.dart';
 import 'package:learn_flutter/widgets/alert_dialog.dart';
 import 'package:learn_flutter/widgets/button_with_gradient.dart';
 
+import '../models/data.dart';
 import '../models/constant.dart';
 
 class Start extends StatefulWidget {
@@ -29,10 +30,6 @@ class _StartState extends State<Start> {
     widget.numOfQuizController.dispose();
     widget.nameOfQuizController.dispose();
     super.dispose();
-  }
-
-  void initState() {
-    super.initState();
   }
 
   String get disabledd {
@@ -102,10 +99,11 @@ class _StartState extends State<Start> {
                             builder: (BuildContext context) =>
                                 CustomAlertDialogWith2TextField(
                               function: () {
-                                if (widget.nameOfQuizController.text.isEmpty ||
-                                    widget.numOfQuizController.text.isEmpty) {
-                                  return;
-                                }
+                                // if (widget.nameOfQuizController.text.isEmpty &&
+                                //     widget.numOfQuizController.text.isEmpty) {
+                                //   return;
+                                // }
+                                print("done it");
                                 numOfQuestionSet
                                     .add(widget.numOfQuizController.text);
 
@@ -135,8 +133,8 @@ class _StartState extends State<Start> {
                               secondController: widget.numOfQuizController,
                               secondTextTitle: "Number of question",
                               title: "Quiz making",
-                              disabledd: disabledd,
-                              disabledd2: disabledd2,
+                              // disabledd: disabledd,
+                              // disabledd2: disabledd2,
                             ),
                           ),
                       mediaQuery.width * 0.8),
@@ -159,71 +157,70 @@ class _StartState extends State<Start> {
                               content: SizedBox(
                                 height: mediaQuery.height * 0.3,
                                 width: mediaQuery.width * 0.7,
-                                child:
-                                    //  SingleChildScrollView(
-                                    //   physics: const ScrollPhysics(),
-                                    //   child:
-                                    ListView.builder(
-                                  itemCount: nameSet.length,
-                                  shrinkWrap: true,
-                                  itemBuilder: (
-                                    context,
-                                    index,
-                                  ) {
-                                    return Card(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(35.0),
-                                      ),
-                                      margin: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 7,
-                                      ),
-                                      child: InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            widget.chosenQuiz = nameSet[index];
-                                            Navigator.pop(context);
-                                          });
-                                        },
-                                        child: Container(
-                                          height: mediaQuery.height * 0.1,
-                                          width: mediaQuery.width * 0.5,
-                                          decoration: const BoxDecoration(
-                                            gradient: buttonGradient,
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(200),
+                                child: SingleChildScrollView(
+                                  physics: const ScrollPhysics(),
+                                  child: ListView.builder(
+                                    itemCount: nameSet.length,
+                                    shrinkWrap: true,
+                                    itemBuilder: (
+                                      context,
+                                      index,
+                                    ) {
+                                      return Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(35.0),
+                                        ),
+                                        margin: const EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                          vertical: 7,
+                                        ),
+                                        child: InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              widget.chosenQuiz =
+                                                  nameSet[index];
+                                              Navigator.pop(context);
+                                            });
+                                          },
+                                          child: Container(
+                                            height: mediaQuery.height * 0.1,
+                                            width: mediaQuery.width * 0.5,
+                                            decoration: const BoxDecoration(
+                                              gradient: buttonGradient,
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(200),
+                                              ),
                                             ),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              FittedBox(
-                                                child: Text(
-                                                  nameSet[index],
-                                                  style: const TextStyle(
-                                                    fontSize: 20,
-                                                    color: Colors.black,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                FittedBox(
+                                                  child: Text(
+                                                    nameSet[index],
+                                                    style: const TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.black,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              Text(
-                                                numOfQuestionSet[index]
-                                                    .toString(),
-                                                style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20,
-                                                ),
-                                              )
-                                            ],
+                                                Text(
+                                                  numOfQuestionSet[index]
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 20,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  },
+                                      );
+                                    },
+                                  ),
                                 ),
-                                // ),
                               ),
                             ),
                           ),

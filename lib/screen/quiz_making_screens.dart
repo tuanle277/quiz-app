@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 
 import 'package:learn_flutter/widgets/button_with_gradient.dart';
-import '../models/constant.dart';
+import '../models/data.dart';
 
 class QuizMakingScreens extends StatefulWidget {
   final int numberOfQuestion;

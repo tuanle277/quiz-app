@@ -6,7 +6,7 @@ import 'package:learn_flutter/screen/start.dart';
 import 'screen/start.dart';
 import 'screen/result_screen.dart';
 
-import './models/constant.dart';
+import './models/data.dart';
 
 void main() => runApp(MyApp());
 
@@ -119,14 +119,7 @@ class _MyAppState extends State<MyApp> {
     final _numOfQuizController = TextEditingController();
     final _nameOfQuizController = TextEditingController();
 
-    @override
-    void dispose() {
-      _nameOfQuizController.dispose();
-      _numOfQuizController.dispose();
-      super.dispose();
-    }
-
-    final chosenQuiz = "Default";
+    var chosenQuiz = "Default";
 
     // void submitDataForQuizMaking() {}
 
