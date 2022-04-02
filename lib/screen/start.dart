@@ -24,7 +24,36 @@ class Start extends StatefulWidget {
 }
 
 class _StartState extends State<Start> {
-  Function submitDataForQuizMaking;
+  @override
+  void dispose() {
+    widget.numOfQuizController.dispose();
+    widget.nameOfQuizController.dispose();
+    super.dispose();
+  }
+
+  void initState() {
+    super.initState();
+  }
+
+  String get disabledd {
+    if (nameSet.contains(widget.nameOfQuizController.text)) {
+      return 'name already taken';
+    }
+
+    if (widget.nameOfQuizController.text.isEmpty) {
+      return 'This cannot be empty';
+    }
+
+    return null;
+  }
+
+  String get disabledd2 {
+    if (widget.numOfQuizController.text.isEmpty) {
+      return 'This cannot be empty';
+    }
+
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +102,13 @@ class _StartState extends State<Start> {
                             builder: (BuildContext context) =>
                                 CustomAlertDialogWith2TextField(
                               function: () {
+                                if (widget.nameOfQuizController.text.isEmpty ||
+                                    widget.numOfQuizController.text.isEmpty) {
+                                  return;
+                                }
                                 numOfQuestionSet
                                     .add(widget.numOfQuizController.text);
+
                                 nameSet.add(widget.nameOfQuizController.text);
                                 Navigator.push(
                                   context,
@@ -96,11 +130,13 @@ class _StartState extends State<Start> {
                               firstButtonTitle: 'Cancel',
                               firstController: widget.nameOfQuizController,
                               firstTextTitle: "Name of Quiz",
-                              heightt: mediaQuery.height * 0.16,
+                              heightt: mediaQuery.height * 0.2,
                               secondButtonTitle: "Done",
                               secondController: widget.numOfQuizController,
                               secondTextTitle: "Number of question",
                               title: "Quiz making",
+                              disabledd: disabledd,
+                              disabledd2: disabledd2,
                             ),
                           ),
                       mediaQuery.width * 0.8),
@@ -108,7 +144,7 @@ class _StartState extends State<Start> {
                     height: mediaQuery.height * 0.02,
                   ),
                   ButtonWithGradient(
-                      "Quiz chosen: ${questionSets.keys.toList()[0]}",
+                      "Quiz chosen: ${widget.chosenQuiz}",
                       () => showDialog(
                             context: context,
                             builder: (BuildContext context) => AlertDialog(

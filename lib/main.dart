@@ -119,6 +119,13 @@ class _MyAppState extends State<MyApp> {
     final _numOfQuizController = TextEditingController();
     final _nameOfQuizController = TextEditingController();
 
+    @override
+    void dispose() {
+      _nameOfQuizController.dispose();
+      _numOfQuizController.dispose();
+      super.dispose();
+    }
+
     final chosenQuiz = "Default";
 
     // void submitDataForQuizMaking() {}
