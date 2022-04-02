@@ -32,10 +32,7 @@ class _MyAppState extends State<MyApp> {
   //main widget
   @override //decorator, makes the code cleaner and clearer
   Widget build(BuildContext context) {
-    // final MadeQuestions = [];
-
     bool cancelTimer = false;
-    // bool restarted = false;
 
     void startTimer() async {
       const onesec = Duration(
@@ -80,8 +77,6 @@ class _MyAppState extends State<MyApp> {
           if (questionIndex < questionSets["Default"].length) questionIndex++;
         },
       );
-
-      // startTimer();
     }
 
     void _startTimer() {
@@ -109,19 +104,41 @@ class _MyAppState extends State<MyApp> {
       );
     }
 
+    final _numOfQuizController = TextEditingController();
+    final _nameOfQuizController = TextEditingController();
+    var chosenQuiz = "Default";
+
     void _play() {
+      print(chosenQuiz);
       setState(
         () => screen++,
       );
       _startTimer();
     }
 
-    final _numOfQuizController = TextEditingController();
-    final _nameOfQuizController = TextEditingController();
+    void _navigateAndDisplaySelection(BuildContext context) async {
+      // Navigator.push returns a Future that completes after calling
+      // Navigator.pop on the Selection Screen.
+      final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Start(
+            _play,
+            _numOfQuizController,
+            _nameOfQuizController,
+            chosenQuiz,
+          ),
+        ),
+      );
 
-    var chosenQuiz = "Default";
+      chosenQuiz = result;
+    }
 
-    // void submitDataForQuizMaking() {}
+    @override
+    void initState() {
+      _navigateAndDisplaySelection(context);
+      super.initState();
+    }
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -132,7 +149,7 @@ class _MyAppState extends State<MyApp> {
       //   primarySwatch: Colors.amber,
       //   fontFamily: 'QuickSand',
       //   accentColor: Colors.black,
-      // ),
+      // ),65
       // routes: {'/quizMakeScreen': (ctx) => QuizMakingScreens()},
       home: screen == 0
           ? Start(

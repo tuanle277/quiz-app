@@ -237,6 +237,9 @@ class _QuizMakingScreensState extends State<QuizMakingScreens> {
               child: const Center(
                 child: Text(
                   'you have finished making the quiz',
+                  style: TextStyle(
+                    fontSize: 30,
+                  ),
                 ),
               ),
             ),

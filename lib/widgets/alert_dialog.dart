@@ -4,6 +4,7 @@ import 'package:learn_flutter/screen/quiz_making_screens.dart';
 class CustomAlertDialogWith2TextField extends StatefulWidget {
   final String title;
   final double heightt;
+  final double widthh;
   final TextEditingController firstController;
   final TextEditingController secondController;
   final String firstButtonTitle;
@@ -20,6 +21,7 @@ class CustomAlertDialogWith2TextField extends StatefulWidget {
     @required this.firstController,
     @required this.firstTextTitle,
     @required this.heightt,
+    @required this.widthh,
     @required this.secondButtonTitle,
     @required this.secondController,
     @required this.secondTextTitle,
@@ -41,11 +43,12 @@ class _CustomAlertDialogWith2TextFieldState
       title: Text(
         widget.title,
         style: const TextStyle(
-          fontSize: 20,
+          fontSize: 30,
           fontWeight: FontWeight.bold,
         ),
       ),
       content: SizedBox(
+        width: widget.widthh,
         height: widget.heightt,
         child: Column(
           children: <Widget>[
